@@ -1,31 +1,14 @@
 # http://www.amazon.com/Drive-Medical-Rollator-Removable-Support/product-reviews/B005S1CHKC/ref=cm_cr_pr_btm_link_163?ie=UTF8&showViewpoints=1&sortBy=recent&reviewerType=all_reviews&formatType=all_formats&filterByStar=all_stars&pageNumber=163
 
 import time
-import urllib 
-import urllib.request 
 import re
-
+from retrieveurl import graburlcontent
 
 amazon = ["http://www.amazon.com/Drive-Medical-Rollator-Removable-Support/product-reviews/B005S1CHKC/ref=cm_cr_pr_btm_link_163?ie=UTF8&showViewpoints=1&sortBy=recent&reviewerType=all_reviews&formatType=all_formats&filterByStar=all_stars&pageNumber=163"]
 
 
 ####################### Setting the Stage (methods) #######################
 
-
-def graburlcontent(pageurl, *args): 
-    opener = urllib.request.build_opener() 
-    opener.addheaders = [('User-agent', 'Mozilla/5.0')] 
- 
-    try: 
-        page = opener.open(pageurl) 
-        x = page.read(*args) # number of bytes is optional
-        #print(x)
-        return x.decode('UTF-8')
-        
-
-    except: 
-        print("some error occured in graburlcontent function")
-        pass
 
 def grab_reviewer_name(pagetext):
     reviewername = re.findall('pdp\?ie=UTF8">(.+)</a></span><sp', pagetext)
@@ -45,6 +28,7 @@ all_ratings = []
 for i in amazon:
     try:
         page_contents = graburlcontent(i)
+        #print(page_contents)
         
        
         
